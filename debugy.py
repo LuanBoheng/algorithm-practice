@@ -16,8 +16,8 @@ class Debug:
         for log in self.function_call_log:
             print('%10f\t%s' %(log['running_time'],log['info']))
 
-def print_report(self):
-    sys.stdout = open(self.log_file_name,"w")
+    def print_report(self):
+        sys.stdout = open(self.log_file_name,"w")
         print('==================== Performance Analysis ====================')
         self.print_performance_analysis()
         print('========================== Full Log ==========================')
@@ -47,9 +47,9 @@ def debug(func):
         
         try:
             output = func(*args,**kwargs)
-except:
-    debug_report.function_call_log.append({'function_name':function_name,'running_time':-1,'info':print_statement})
-        print('==================== Performance Analysis ==========')
+        except:
+            debug_report.function_call_log.append({'function_name':function_name,'running_time':-1,'info':print_statement})
+            print('==================== Performance Analysis ==========')
             debug_report.print_performance_analysis()
             print('==================== Last Statement ================')
             # print_full_log()
@@ -65,8 +65,8 @@ except:
         
         debug_report.function_call_log.append({'function_name':function_name,'running_time':running_time,'info':print_statement})
         
-            return output
-        return wrapper
+        return output
+    return wrapper
 
 
 @debug
