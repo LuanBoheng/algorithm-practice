@@ -1,7 +1,5 @@
 import sys
 
-
-
 class STDOUT:
     def __init__(self):
         self.CONSOLE = sys.stdout
