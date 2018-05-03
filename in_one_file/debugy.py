@@ -1,10 +1,31 @@
 from collections import Counter
 import sys,time
-import print_stdout
 
-CONSOLE_STDOUT = sys.stdout
-LOG_STDOUT = open("log.txt","w")
-PROFILE_STDOUT = open("profile.txt","w")
+class STDOUT:
+    def __init__(self):
+        self.CONSOLE = sys.stdout
+        self.LOG = open("log.txt","w")
+        self.PROFILE = open("profile.txt","w")
+
+stdout = STDOUT()
+
+def print_in_std(target_stdout,func):
+    def wrapper(*args,**kwargs):
+        old_stdout = sys.stdout
+        sys.stdout = target_stdout
+        output = func(*args,**kwargs)
+        sys.stdout = old_stdout
+        return output
+    return wrapper
+
+def print_in_console(func):
+    return print_in_std(stdout.CONSOLE,func)
+
+def print_in_log(func):
+    return print_in_std(stdout.LOG,func)
+
+def print_in_profile(func):
+    return print_in_std(stdout.PROFILE,func)
 
 class Performance_analysis:
 
@@ -15,14 +36,14 @@ class Performance_analysis:
         self.LOGGING = False
     
 
-    @print_stdout.print_in_profile
+    @print_in_profile
     def print_performance(self):
         print('==================== Performance Analysis ====================')
         print('%10s\t%10s\t%10s\t%s' %('time','call','time/call','name'))
         for name in self.func_call:
             print('%10f\t%10d\t%10f\t%s' %(self.func_time[name],self.func_call[name],self.func_time[name]/self.func_call[name],name))
     
-    @print_stdout.print_in_log
+    @print_in_log
     def print_log(self):
         for log in self.runing_log:
             print(*log)
@@ -53,7 +74,7 @@ def logger(func):
     return wrapper
 
 if __name__=="__main__":
-    # analysis.LOGGING = True
+    analysis.LOGGING = True
 
     @logger
     def add(x,y):
