@@ -7,7 +7,6 @@ LOG_STDOUT = open("log.txt","w")
 PROFILE_STDOUT = open("profile.txt","w")
 LOGGING = False
 
-
 class Performance_analysis:
     func_call = Counter()
     func_time = Counter()
@@ -64,5 +63,4 @@ if __name__=="__main__":
         for j in range(1000):
             add(j,i)
 
-    analysis.print_performance()
-    analysis.print_log()
+    analysis.print_reports()
