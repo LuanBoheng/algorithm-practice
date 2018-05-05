@@ -33,7 +33,7 @@ class Performance_analysis:
         self.func_call = Counter()
         self.func_time = Counter()
         self.runing_log = []
-        self.LOGGING = False
+        self.LOGGING = True
     
 
     @print_in_profile
