@@ -4,6 +4,10 @@ import debugy
 class Cache:
     current_func = None
     cache_storage = defaultdict(dict)
+
+    def clear_cache(self):
+        self.cache_storage.clear()
+        self.current_func = None
     
 c = Cache()
 
